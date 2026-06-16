@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Social Media & Mental Health Impact</title>
+
+<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+
+<style>
+  :root {
+    --bg: #0f1115;
+    --bg-card: #161922;
+    --border: #262b36;
+    --text-primary: #eef0f4;
+    --text-secondary: #a3a9b7;
+    --accent-situation: #4f9cf9;
+    --accent-complication: #f96d6d;
+    --accent-resolution: #4fd1a5;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+
+  /* ── BACKGROUND: mesh gradient yang bergerak pelan ── */
+  body {
+    background-color: #0f1115;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 10% 20%,  rgba(79,156,249,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 10%,  rgba(79,209,165,0.09) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 60% at 50% 90%,  rgba(249,109,109,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 60%,  rgba(139,92,246,0.07) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* ── HEADER dengan subtle glow di teks ── */
+  header {
+    text-align: center;
+    padding: 3.5rem 1.5rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 50% 0%, rgba(79,156,249,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #eef0f4 30%, #4f9cf9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  header p {
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(15,17,21,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10;
+  }
+
+  nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+
+  nav a:hover {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+    background: rgba(255,255,255,0.04);
+  }
+
+  /* ── SECTIONS ── */
+  section.scr {
+    width: 100%;
+    padding: 4rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  /* Tiap section punya warna aksen sendiri di background */
+  #situation {
+    background: radial-gradient(ellipse 60% 50% at 0% 50%, rgba(79,156,249,0.06) 0%, transparent 70%);
+  }
+  #complication {
+    background: radial-gradient(ellipse 60% 50% at 100% 50%, rgba(249,109,109,0.06) 0%, transparent 70%);
+  }
+  #resolution {
+    background: radial-gradient(ellipse 60% 50% at 0% 50%, rgba(79,209,165,0.06) 0%, transparent 70%);
+  }
+
+  .inner {
+    max-width: 1366px;
+    margin: 0 auto;
+  }
+
+  .label {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  #situation   .label { background: rgba(79,156,249,0.15);  color: var(--accent-situation); }
+  #complication .label { background: rgba(249,109,109,0.15); color: var(--accent-complication); }
+  #resolution  .label { background: rgba(79,209,165,0.15);  color: var(--accent-resolution); }
+
+  .scr h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .narrative {
+    background: rgba(22,25,34,0.7);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.75rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .narrative h3 {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .narrative p { color: var(--text-primary); }
+
+  /* ── VIZ WRAPPER ── */
+  .viz-wrap {
+    background: rgba(22,25,34,0.8);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding-bottom: calc(800 / 1366 * 100%);
+    height: 0;
+  }
+
+  .viz-wrap tableau-viz {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: block;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 700px) {
+    header h1 { font-size: 1.4rem; }
+    .scr h2   { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Student Social Media &amp; Mental Health Impact</h1>
+  <p>Analisis dampak penggunaan media sosial terhadap kesehatan mental mahasiswa — disajikan dalam tiga babak: Situation, Complication, dan Resolution.</p>
+</header>
+
+<nav>
+  <a href="#situation"     onclick="smoothTo(event,'situation')">Situation</a>
+  <a href="#complication"  onclick="smoothTo(event,'complication')">Complication</a>
+  <a href="#resolution"    onclick="smoothTo(event,'resolution')">Resolution</a>
+</nav>
+
+<!-- ================= SITUATION ================= -->
+<section class="scr" id="situation">
+  <div class="inner">
+    <span class="label">Situation</span>
+    <h2>Pola Penggunaan Media Sosial di Kalangan Mahasiswa</h2>
+    <div class="narrative">
+      <h3>Why It Matters</h3>
+      <p>Instagram dan TikTok mendominasi penggunaan media sosial mahasiswa, dengan rata-rata 5 jam per hari. Dataset mencakup 5.000 mahasiswa dari 111 negara di berbagai jenjang pendidikan — membentuk baseline yang kuat untuk memahami hubungan antara kebiasaan digital dan kondisi mental.</p>
+    </div>
+    <div class="viz-wrap">
+      <tableau-viz
+        src="https://public.tableau.com/views/SITUATION-StudentSocialMediaandMentalHealthImpact-Kelompok12/Dashboard1"
+        toolbar="bottom"
+        hide-tabs>
+      </tableau-viz>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ================= COMPLICATION ================= -->
+<section class="scr" id="complication">
+  <div class="inner">
+    <span class="label">Complication</span>
+    <h2>Dampak Negatif: Stres, Tidur, dan Kesehatan Mental</h2>
+
+    <div class="narrative">
+      <h3>Why It Matters</h3>
+      <p>[Tulis narasi: jelaskan korelasi negatif antara jam penggunaan dan skor kesehatan mental, kelompok mana yang paling terdampak, dan bagaimana pola tidur serta aktivitas fisik ikut memburuk seiring meningkatnya penggunaan media sosial.]</p>
+    </div>
+
+    <div class="viz-wrap">
+      <tableau-viz
+        src="https://public.tableau.com/views/FP_17816048919930/Dashboard1"
+        toolbar="bottom"
+        hide-tabs>
+      </tableau-viz>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESOLUTION ================= -->
+<section class="scr" id="resolution">
+  <div class="inner">
+    <span class="label">Resolution</span>
+    <h2>Rekomendasi: Kombinasi Optimal untuk Kesehatan Mental</h2>
+
+    <div class="narrative">
+      <h3>Why It Matters</h3>
+      <p>[Tulis narasi: jelaskan bahwa penggunaan platform edukatif seperti LinkedIn dan YouTube dengan durasi moderat (&lt;5 jam), dikombinasikan dengan tidur cukup 7–8 jam, berkorelasi dengan skor kesehatan mental tertinggi. Ini menjadi dasar rekomendasi intervensi.]</p>
+    </div>
+
+    <div class="viz-wrap">
+      <tableau-viz
+        src="PASTE_URL_DASHBOARD_RESOLUTION_DI_SINI"
+        toolbar="bottom"
+        hide-tabs>
+      </tableau-viz>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Dataset: Student Social Media And Mental Health Impact &middot; Dashboard dibuat dengan Tableau Public &middot; Kelompok 12
+</footer>
+
+</body>
+</html>
