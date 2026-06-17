@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student Social Media & Mental Health Impact</title>
 
-<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
-
 <style>
   :root {
     --bg: #0f1115;
@@ -29,7 +27,6 @@
     line-height: 1.6;
   }
 
-  /* ── BACKGROUND: mesh gradient yang bergerak pelan ── */
   body {
     background-color: #0f1115;
     background-image:
@@ -40,7 +37,6 @@
     background-attachment: fixed;
   }
 
-  /* ── HEADER dengan subtle glow di teks ── */
   header {
     text-align: center;
     padding: 3.5rem 1.5rem 2.5rem;
@@ -71,7 +67,6 @@
     margin: 0 auto;
   }
 
-  /* ── NAV ── */
   nav {
     display: flex;
     justify-content: center;
@@ -103,7 +98,6 @@
     background: rgba(255,255,255,0.04);
   }
 
-  /* ── SECTIONS ── */
   section.scr {
     width: 100%;
     padding: 4rem 1.5rem;
@@ -111,21 +105,11 @@
     position: relative;
   }
 
-  /* Tiap section punya warna aksen sendiri di background */
-  #situation {
-    background: radial-gradient(ellipse 60% 50% at 0% 50%, rgba(79,156,249,0.06) 0%, transparent 70%);
-  }
-  #complication {
-    background: radial-gradient(ellipse 60% 50% at 100% 50%, rgba(249,109,109,0.06) 0%, transparent 70%);
-  }
-  #resolution {
-    background: radial-gradient(ellipse 60% 50% at 0% 50%, rgba(79,209,165,0.06) 0%, transparent 70%);
-  }
+  #situation    { background: radial-gradient(ellipse 60% 50% at 0% 50%,   rgba(79,156,249,0.06) 0%, transparent 70%); }
+  #complication { background: radial-gradient(ellipse 60% 50% at 100% 50%, rgba(249,109,109,0.06) 0%, transparent 70%); }
+  #resolution   { background: radial-gradient(ellipse 60% 50% at 0% 50%,   rgba(79,209,165,0.06) 0%, transparent 70%); }
 
-  .inner {
-    max-width: 1366px;
-    margin: 0 auto;
-  }
+  .inner { max-width: 1366px; margin: 0 auto; }
 
   .label {
     display: inline-block;
@@ -142,10 +126,7 @@
   #complication .label { background: rgba(249,109,109,0.15); color: var(--accent-complication); }
   #resolution  .label { background: rgba(79,209,165,0.15);  color: var(--accent-resolution); }
 
-  .scr h2 {
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-  }
+  .scr h2 { font-size: 1.6rem; margin-bottom: 1rem; }
 
   .narrative {
     background: rgba(22,25,34,0.7);
@@ -162,31 +143,84 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
   }
 
   .narrative p { color: var(--text-primary); }
 
   /* ── VIZ WRAPPER ── */
   .viz-wrap {
-    background: rgba(22,25,34,0.8);
     border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
     width: 100%;
     position: relative;
-    padding-bottom: calc(800 / 1366 * 100%);
+    padding-bottom: calc(827 / 1366 * 100%);
     height: 0;
+    background: rgba(22,25,34,0.8);
   }
 
-  .viz-wrap tableau-viz {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    display: block;
+  .viz-wrap .tableauPlaceholder,
+  .viz-wrap iframe {
+    position: absolute !important;
+    top: 0 !important; left: 0 !important;
+    width: 100% !important; height: 100% !important;
+    border: none;
   }
 
-  /* ── FOOTER ── */
+  .viz-wrap .tableauPlaceholder object {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* ── INSIGHT BOX ── */
+  .insight-box {
+    margin-top: 1.75rem;
+    background: rgba(22,25,34,0.7);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .insight-box h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+  }
+
+  #situation   .insight-box h3 { color: var(--accent-situation); }
+  #complication .insight-box h3 { color: var(--accent-complication); }
+  #resolution  .insight-box h3 { color: var(--accent-resolution); }
+
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .insight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+  }
+
+  .insight-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .insight-text { font-size: 0.88rem; color: var(--text-primary); line-height: 1.5; }
+  .insight-text strong { display: block; font-size: 0.95rem; margin-bottom: 2px; }
+  .insight-text span { color: var(--text-secondary); font-size: 0.82rem; }
+
   footer {
     text-align: center;
     padding: 2rem 1.5rem;
@@ -198,6 +232,7 @@
   @media (max-width: 700px) {
     header h1 { font-size: 1.4rem; }
     .scr h2   { font-size: 1.25rem; }
+    .insight-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -209,9 +244,9 @@
 </header>
 
 <nav>
-  <a href="#situation"     onclick="smoothTo(event,'situation')">Situation</a>
-  <a href="#complication"  onclick="smoothTo(event,'complication')">Complication</a>
-  <a href="#resolution"    onclick="smoothTo(event,'resolution')">Resolution</a>
+  <a href="#situation"    onclick="smoothTo(event,'situation')">Situation</a>
+  <a href="#complication" onclick="smoothTo(event,'complication')">Complication</a>
+  <a href="#resolution"   onclick="smoothTo(event,'resolution')">Resolution</a>
 </nav>
 
 <!-- ================= SITUATION ================= -->
@@ -219,21 +254,81 @@
   <div class="inner">
     <span class="label">Situation</span>
     <h2>Pola Penggunaan Media Sosial di Kalangan Mahasiswa</h2>
+
     <div class="narrative">
       <h3>Why It Matters</h3>
-      <p>Instagram dan TikTok mendominasi penggunaan media sosial mahasiswa, dengan rata-rata 5 jam per hari. Dataset mencakup 5.000 mahasiswa dari 111 negara di berbagai jenjang pendidikan — membentuk baseline yang kuat untuk memahami hubungan antara kebiasaan digital dan kondisi mental.</p>
+      <p>Media sosial telah menjadi bagian tak terpisahkan dari kehidupan mahasiswa. Dari 5.000 responden di 111 negara (termasuk responden yang memilih untuk tidak menyertakan negara asal), rata-rata penggunaan harian mencapai <strong>5 jam per hari</strong> — dengan Instagram dan TikTok sebagai platform dominan. Mahasiswa menggunakan media sosial terutama untuk hiburan (Entertainment) dan jaringan sosial (Networking), melampaui tujuan akademik. Pemahaman tentang pola ini menjadi baseline penting sebelum mengkaji dampaknya terhadap kesehatan mental.</p>
     </div>
+
     <div class="viz-wrap">
-      <tableau-viz
-        src="https://public.tableau.com/views/SITUATION-StudentSocialMediaandMentalHealthImpact-Kelompok12/Dashboard1"
-        toolbar="bottom"
-        hide-tabs>
-      </tableau-viz>
+      <div class='tableauPlaceholder' id='viz1781678071037' style='position:relative'>
+        <noscript><a href='#'><img alt='Dashboard 1' src='https://public.tableau.com/static/images/SI/SITUATION-StudentSocialMediaandMentalHealthImpact-Kelompok12/Dashboard1/1_rss.png' style='border:none'/></a></noscript>
+        <object class='tableauViz' style='display:none;'>
+          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F'/>
+          <param name='embed_code_version' value='3'/>
+          <param name='site_root' value=''/>
+          <param name='name' value='SITUATION-StudentSocialMediaandMentalHealthImpact-Kelompok12/Dashboard1'/>
+          <param name='tabs' value='no'/>
+          <param name='toolbar' value='yes'/>
+          <param name='static_image' value='https://public.tableau.com/static/images/SI/SITUATION-StudentSocialMediaandMentalHealthImpact-Kelompok12/Dashboard1/1.png'/>
+          <param name='animate_transition' value='yes'/>
+          <param name='display_static_image' value='yes'/>
+          <param name='display_spinner' value='yes'/>
+          <param name='display_overlay' value='yes'/>
+          <param name='display_count' value='yes'/>
+          <param name='language' value='en-US'/>
+          <param name='filter' value='publish=yes'/>
+        </object>
+      </div>
+      <script type='text/javascript'>
+        (function() {
+          var divElement = document.getElementById('viz1781678071037');
+          var vizElement = divElement.getElementsByTagName('object')[0];
+          vizElement.style.width  = '100%';
+          vizElement.style.height = '100%';
+          var scriptElement = document.createElement('script');
+          scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+          vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        })();
+      </script>
     </div>
+
+    <div class="insight-box">
+      <h3>Key Insights</h3>
+      <div class="insight-grid">
+        <div class="insight-item">
+          <div class="insight-icon">📱</div>
+          <div class="insight-text">
+            <strong>Instagram & TikTok Mendominasi</strong>
+            Dua platform ini mencatat jumlah pengguna tertinggi di semua jenjang pendidikan, mencerminkan preferensi konten visual dan hiburan singkat.
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">⏱️</div>
+          <div class="insight-text">
+            <strong>WhatsApp: Penggunaan Harian Tertinggi</strong>
+            Rata-rata 6,4 jam/hari — jauh melampaui platform lain, terutama di kalangan mahasiswa perempuan.
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🎓</div>
+          <div class="insight-text">
+            <strong>Undergraduate Mendominasi Dataset</strong>
+            Lebih dari 63% responden adalah mahasiswa S1 — menjadikan mereka kelompok paling relevan untuk dikaji lebih lanjut.
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🎭</div>
+          <div class="insight-text">
+            <strong>Hiburan Jadi Tujuan Utama</strong>
+            Mayoritas mahasiswa menggunakan media sosial untuk Entertainment, bukan untuk keperluan akademik atau berita.
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
-
-
 
 <!-- ================= COMPLICATION ================= -->
 <section class="scr" id="complication">
@@ -243,16 +338,76 @@
 
     <div class="narrative">
       <h3>Why It Matters</h3>
-      <p>[Tulis narasi: jelaskan korelasi negatif antara jam penggunaan dan skor kesehatan mental, kelompok mana yang paling terdampak, dan bagaimana pola tidur serta aktivitas fisik ikut memburuk seiring meningkatnya penggunaan media sosial.]</p>
+      <p>Di balik tingginya penggunaan media sosial, data menunjukkan pola yang mengkhawatirkan. Mahasiswa dengan stres level <strong>Very High</strong> rata-rata menggunakan media sosial <strong>6,87 jam/hari</strong> — lebih dari dua kali lipat kelompok Low stress (2,78 jam). Korelasi negatif yang kuat antara jam penggunaan dan skor kesehatan mental (r = -0,82) membuktikan bahwa penggunaan berlebihan bukan sekadar kebiasaan, melainkan faktor risiko nyata. Dampaknya meluas ke jam belajar yang merosot, tidur yang berkurang, hingga aktivitas fisik yang terbengkalai.</p>
     </div>
 
     <div class="viz-wrap">
-      <tableau-viz
-        src="https://public.tableau.com/views/FP_17816048919930/Dashboard1"
-        toolbar="bottom"
-        hide-tabs>
-      </tableau-viz>
+      <div class="tableauPlaceholder" id="viz1781678721329" style="position:relative;">
+        <noscript><a href="#"><img alt="Dashboard 1" src="https://public.tableau.com/static/images/FP/FP_17816778869490/Dashboard1/1_rss.png" style="border:none;"/></a></noscript>
+        <object class="tableauViz" style="display:none;">
+          <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F"/>
+          <param name="embed_code_version" value="3"/>
+          <param name="site_root" value=""/>
+          <param name="name" value="FP_17816778869490/Dashboard1"/>
+          <param name="tabs" value="no"/>
+          <param name="toolbar" value="yes"/>
+          <param name="static_image" value="https://public.tableau.com/static/images/FP/FP_17816778869490/Dashboard1/1.png"/>
+          <param name="animate_transition" value="yes"/>
+          <param name="display_static_image" value="yes"/>
+          <param name="display_spinner" value="yes"/>
+          <param name="display_overlay" value="yes"/>
+          <param name="display_count" value="yes"/>
+          <param name="language" value="en-US"/>
+          <param name="filter" value="publish=yes"/>
+        </object>
+      </div>
+      <script type="text/javascript">
+        (function() {
+          var divElement = document.getElementById('viz1781678721329');
+          var vizElement = divElement.getElementsByTagName('object')[0];
+          vizElement.style.width  = '100%';
+          vizElement.style.height = '100%';
+          var scriptElement = document.createElement('script');
+          scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+          vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        })();
+      </script>
     </div>
+
+    <div class="insight-box">
+      <h3>Key Insights</h3>
+      <div class="insight-grid">
+        <div class="insight-item">
+          <div class="insight-icon">📉</div>
+          <div class="insight-text">
+            <strong>Skor Kesehatan Mental Anjlok 36%</strong>
+            Kelompok Very High stress memiliki rata-rata skor 5,05 — turun drastis dibanding kelompok Low stress yang mencapai 7,84.
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">📚</div>
+          <div class="insight-text">
+            <strong>Jam Belajar Terpotong 71%</strong>
+            Mahasiswa dengan stres Very High hanya belajar 1,49 jam/hari, dibanding 5,18 jam/hari pada kelompok Low stress.
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">😴</div>
+          <div class="insight-text">
+            <strong>Tidur Berkurang Signifikan</strong>
+            Kelompok Very High stress tidur rata-rata hanya 5,44 jam/malam — di bawah rekomendasi minimum 7 jam, vs 8,16 jam pada Low stress.
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🎓</div>
+          <div class="insight-text">
+            <strong>SMA Paling Rentan</strong>
+            Siswa SMA (High School) memiliki proporsi stres Very High tertinggi secara relatif terhadap jumlah respondennya dibanding jenjang S1 dan S2.
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -264,22 +419,91 @@
 
     <div class="narrative">
       <h3>Why It Matters</h3>
-      <p>[Tulis narasi: jelaskan bahwa penggunaan platform edukatif seperti LinkedIn dan YouTube dengan durasi moderat (&lt;5 jam), dikombinasikan dengan tidur cukup 7–8 jam, berkorelasi dengan skor kesehatan mental tertinggi. Ini menjadi dasar rekomendasi intervensi.]</p>
+      <p>Data tidak hanya mengungkap masalah, tetapi juga menunjukkan jalan keluarnya. Mahasiswa yang membatasi penggunaan media sosial di bawah 2 jam/hari memiliki skor kesehatan mental rata-rata <strong>7,99</strong> — 51% lebih tinggi dibanding pengguna berat (&gt;5 jam). Pilihan platform juga berpengaruh: pengguna LINE dan LinkedIn mencatat skor terbaik, sementara WhatsApp dan TikTok berada di posisi terbawah. Dikombinasikan dengan tidur 7–8 jam dan aktivitas fisik minimal 2 jam/hari, perbaikan kesehatan mental mahasiswa bukan sekadar mungkin — melainkan terukur.</p>
     </div>
 
     <div class="viz-wrap">
-      <tableau-viz
-        src="PASTE_URL_DASHBOARD_RESOLUTION_DI_SINI"
-        toolbar="bottom"
-        hide-tabs>
-      </tableau-viz>
+      <div class="tableauPlaceholder" id="viz1781678431128" style="position:relative;">
+        <noscript><a href="#"><img alt="Dashboard 2" src="https://public.tableau.com/static/images/FP/FP_17816778869490/Dashboard2/1_rss.png" style="border:none;"/></a></noscript>
+        <object class="tableauViz" style="display:none;">
+          <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F"/>
+          <param name="embed_code_version" value="3"/>
+          <param name="site_root" value=""/>
+          <param name="name" value="FP_17816778869490/Dashboard2"/>
+          <param name="tabs" value="no"/>
+          <param name="toolbar" value="yes"/>
+          <param name="static_image" value="https://public.tableau.com/static/images/FP/FP_17816778869490/Dashboard2/1.png"/>
+          <param name="animate_transition" value="yes"/>
+          <param name="display_static_image" value="yes"/>
+          <param name="display_spinner" value="yes"/>
+          <param name="display_overlay" value="yes"/>
+          <param name="display_count" value="yes"/>
+          <param name="language" value="en-US"/>
+        </object>
+      </div>
+      <script type="text/javascript">
+        (function() {
+          var divElement = document.getElementById('viz1781678431128');
+          var vizElement = divElement.getElementsByTagName('object')[0];
+          vizElement.style.width  = '100%';
+          vizElement.style.height = '100%';
+          var scriptElement = document.createElement('script');
+          scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+          vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        })();
+      </script>
     </div>
+
+    <div class="insight-box">
+      <h3>Key Insights</h3>
+      <div class="insight-grid">
+        <div class="insight-item">
+          <div class="insight-icon">⏳</div>
+          <div class="insight-text">
+            <strong>Batasi Penggunaan &lt;2 Jam/Hari</strong>
+            Pengguna rendah (&lt;2 jam) memiliki skor mental health 7,99 vs 5,29 untuk pengguna tinggi (&gt;5 jam) — selisih 51%.
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🌙</div>
+          <div class="insight-text">
+            <strong>Tidur 7–8 Jam adalah Kunci</strong>
+            Mahasiswa yang tidur 7–8 jam/malam mencatat skor 7,20 — meningkat 41% dibanding yang tidur kurang dari 5 jam (skor 5,11).
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🏃</div>
+          <div class="insight-text">
+            <strong>Aktif Bergerak Minimal 2 Jam/Hari</strong>
+            Aktivitas fisik 2–3 jam/hari berkorelasi dengan skor 6,95, dan meningkat ke 7,56 pada mereka yang aktif lebih dari 3 jam.
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🎯</div>
+          <div class="insight-text">
+            <strong>Gunakan Platform Produktif</strong>
+            Beralih ke platform berbasis Networking dan Education (LinkedIn, LINE) terbukti menghasilkan skor kesehatan mental lebih tinggi dibanding platform hiburan.
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <footer>
   Dataset: Student Social Media And Mental Health Impact &middot; Dashboard dibuat dengan Tableau Public &middot; Kelompok 12
 </footer>
+
+<script>
+  function smoothTo(e, id) {
+    e.preventDefault();
+    const target = document.getElementById(id);
+    const navH   = document.querySelector('nav').offsetHeight;
+    const top    = target.getBoundingClientRect().top + window.scrollY - navH - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+</script>
 
 </body>
 </html>
