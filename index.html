@@ -12,9 +12,11 @@
     --border: #262b36;
     --text-primary: #eef0f4;
     --text-secondary: #a3a9b7;
-    --accent-situation: #4f9cf9;
+    --accent-situation:    #4f9cf9;
     --accent-complication: #f96d6d;
-    --accent-resolution: #4fd1a5;
+    --accent-resolution:   #4fd1a5;
+    --accent-insight:      #c084fc;
+    --accent-rekomendasi:  #fbbf24;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,6 +39,7 @@
     background-attachment: fixed;
   }
 
+  /* ── HEADER ── */
   header {
     text-align: center;
     padding: 3.5rem 1.5rem 2.5rem;
@@ -67,37 +70,42 @@
     margin: 0 auto;
   }
 
+  /* ── NAV ── */
   nav {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 0.6rem;
+    padding: 0.85rem 1rem;
     flex-wrap: wrap;
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    background: rgba(15,17,21,0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: 10;
+    background: rgba(15,17,21,0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    z-index: 100;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.4);
   }
 
   nav a {
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     padding: 0.4rem 0.9rem;
     border-radius: 999px;
     border: 1px solid var(--border);
-    transition: color 0.2s, border-color 0.2s, background 0.2s;
+    transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
   }
 
-  nav a:hover {
-    color: var(--text-primary);
-    border-color: var(--text-secondary);
-    background: rgba(255,255,255,0.04);
-  }
+  nav a:hover                     { color: var(--text-primary); border-color: var(--text-secondary); background: rgba(255,255,255,0.04); }
+  nav a.active-situation          { color: var(--accent-situation);    border-color: var(--accent-situation);    background: rgba(79,156,249,0.12);  box-shadow: 0 0 10px rgba(79,156,249,0.2); }
+  nav a.active-complication       { color: var(--accent-complication); border-color: var(--accent-complication); background: rgba(249,109,109,0.12); box-shadow: 0 0 10px rgba(249,109,109,0.2); }
+  nav a.active-resolution         { color: var(--accent-resolution);   border-color: var(--accent-resolution);   background: rgba(79,209,165,0.12);  box-shadow: 0 0 10px rgba(79,209,165,0.2); }
+  nav a.active-insight            { color: var(--accent-insight);      border-color: var(--accent-insight);      background: rgba(192,132,252,0.12); box-shadow: 0 0 10px rgba(192,132,252,0.2); }
+  nav a.active-rekomendasi        { color: var(--accent-rekomendasi);  border-color: var(--accent-rekomendasi);  background: rgba(251,191,36,0.12);  box-shadow: 0 0 10px rgba(251,191,36,0.2); }
 
+  /* ── SECTION ── */
   section.scr {
     width: 100%;
     padding: 4rem 1.5rem;
@@ -105,12 +113,15 @@
     position: relative;
   }
 
-  #situation    { background: radial-gradient(ellipse 60% 50% at 0% 50%,   rgba(79,156,249,0.06) 0%, transparent 70%); }
+  #situation    { background: radial-gradient(ellipse 60% 50% at 0% 50%,   rgba(79,156,249,0.06)  0%, transparent 70%); }
   #complication { background: radial-gradient(ellipse 60% 50% at 100% 50%, rgba(249,109,109,0.06) 0%, transparent 70%); }
-  #resolution   { background: radial-gradient(ellipse 60% 50% at 0% 50%,   rgba(79,209,165,0.06) 0%, transparent 70%); }
+  #resolution   { background: radial-gradient(ellipse 60% 50% at 0% 50%,   rgba(79,209,165,0.06)  0%, transparent 70%); }
+  #insight      { background: radial-gradient(ellipse 60% 50% at 100% 50%, rgba(192,132,252,0.06) 0%, transparent 70%); }
+  #rekomendasi  { background: radial-gradient(ellipse 60% 50% at 0% 50%,   rgba(251,191,36,0.06)  0%, transparent 70%); }
 
   .inner { max-width: 1366px; margin: 0 auto; }
 
+  /* ── LABEL ── */
   .label {
     display: inline-block;
     font-size: 0.75rem;
@@ -122,12 +133,15 @@
     font-weight: 600;
   }
 
-  #situation   .label { background: rgba(79,156,249,0.15);  color: var(--accent-situation); }
+  #situation   .label  { background: rgba(79,156,249,0.15);  color: var(--accent-situation); }
   #complication .label { background: rgba(249,109,109,0.15); color: var(--accent-complication); }
-  #resolution  .label { background: rgba(79,209,165,0.15);  color: var(--accent-resolution); }
+  #resolution  .label  { background: rgba(79,209,165,0.15);  color: var(--accent-resolution); }
+  #insight     .label  { background: rgba(192,132,252,0.15); color: var(--accent-insight); }
+  #rekomendasi .label  { background: rgba(251,191,36,0.15);  color: var(--accent-rekomendasi); }
 
   .scr h2 { font-size: 1.6rem; margin-bottom: 1rem; }
 
+  /* ── NARRATIVE ── */
   .narrative {
     background: rgba(22,25,34,0.7);
     border: 1px solid var(--border);
@@ -194,6 +208,8 @@
   #situation   .insight-box h3 { color: var(--accent-situation); }
   #complication .insight-box h3 { color: var(--accent-complication); }
   #resolution  .insight-box h3 { color: var(--accent-resolution); }
+  #insight     .insight-box h3 { color: var(--accent-insight); }
+  #rekomendasi .insight-box h3 { color: var(--accent-rekomendasi); }
 
   .insight-grid {
     display: grid;
@@ -211,16 +227,162 @@
     padding: 0.85rem 1rem;
   }
 
-  .insight-icon {
-    font-size: 1.2rem;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
+  .insight-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
   .insight-text { font-size: 0.88rem; color: var(--text-primary); line-height: 1.5; }
   .insight-text strong { display: block; font-size: 0.95rem; margin-bottom: 2px; }
   .insight-text span { color: var(--text-secondary); font-size: 0.82rem; }
 
+  /* ── FINDING CARDS (Insight section) ── */
+  .finding-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .finding-card {
+    background: rgba(22,25,34,0.75);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.4rem;
+    backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .finding-card:hover { transform: translateY(-2px); }
+
+  .finding-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .finding-card.purple::before  { background: var(--accent-insight); }
+  .finding-card.blue::before    { background: var(--accent-situation); }
+  .finding-card.red::before     { background: var(--accent-complication); }
+  .finding-card.green::before   { background: var(--accent-resolution); }
+  .finding-card.yellow::before  { background: var(--accent-rekomendasi); }
+
+  .finding-card:hover.purple  { border-color: rgba(192,132,252,0.4); }
+  .finding-card:hover.blue    { border-color: rgba(79,156,249,0.4); }
+  .finding-card:hover.red     { border-color: rgba(249,109,109,0.4); }
+  .finding-card:hover.green   { border-color: rgba(79,209,165,0.4); }
+  .finding-card:hover.yellow  { border-color: rgba(251,191,36,0.4); }
+
+  .finding-card .fc-icon { font-size: 1.8rem; margin-bottom: 0.6rem; display: block; }
+  .finding-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .finding-card p  { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.55; }
+
+  .stat-highlight {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0.4rem 0;
+  }
+
+  .stat-highlight.purple { color: var(--accent-insight); }
+  .stat-highlight.blue   { color: var(--accent-situation); }
+  .stat-highlight.red    { color: var(--accent-complication); }
+  .stat-highlight.green  { color: var(--accent-resolution); }
+  .stat-highlight.yellow { color: var(--accent-rekomendasi); }
+
+  /* ── REKOMENDASI CARDS ── */
+  .rekom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .rekom-card {
+    background: rgba(22,25,34,0.75);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem;
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .rekom-card:hover {
+    border-color: rgba(251,191,36,0.35);
+    transform: translateY(-2px);
+  }
+
+  .rekom-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-rekomendasi);
+    opacity: 0.8;
+  }
+
+  .rekom-icon { font-size: 2rem; }
+
+  .rekom-card h4 { font-size: 1rem; font-weight: 700; }
+
+  .rekom-card p { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.55; flex: 1; }
+
+  .rekom-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(251,191,36,0.12);
+    color: var(--accent-rekomendasi);
+    border: 1px solid rgba(251,191,36,0.25);
+    width: fit-content;
+  }
+
+  /* ── QUOTE BLOCK ── */
+  .quote-block {
+    border-left: 3px solid var(--accent-insight);
+    padding: 1rem 1.4rem;
+    background: rgba(192,132,252,0.05);
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .quote-block.yellow { border-left-color: var(--accent-rekomendasi); background: rgba(251,191,36,0.05); }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0 1.5rem;
+  }
+
+  .section-divider span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .section-divider.purple span { color: var(--accent-insight); }
+  .section-divider.yellow span { color: var(--accent-rekomendasi); }
+
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── FOOTER ── */
   footer {
     text-align: center;
     padding: 2rem 1.5rem;
@@ -232,7 +394,9 @@
   @media (max-width: 700px) {
     header h1 { font-size: 1.4rem; }
     .scr h2   { font-size: 1.25rem; }
-    .insight-grid { grid-template-columns: 1fr; }
+    .insight-grid, .finding-grid, .rekom-grid { grid-template-columns: 1fr; }
+    nav { gap: 0.4rem; }
+    nav a { font-size: 0.78rem; padding: 0.35rem 0.7rem; }
   }
 </style>
 </head>
@@ -240,16 +404,18 @@
 
 <header>
   <h1>Student Social Media &amp; Mental Health Impact</h1>
-  <p>Analisis dampak penggunaan media sosial terhadap kesehatan mental mahasiswa — disajikan dalam tiga babak: Situation, Complication, dan Resolution.</p>
+  <p>Analisis dampak penggunaan media sosial terhadap kesehatan mental mahasiswa — disajikan dalam lima babak: Situation, Complication, Resolution, Insight, dan Rekomendasi.</p>
 </header>
 
-<nav>
-  <a href="#situation"    onclick="smoothTo(event,'situation')">Situation</a>
-  <a href="#complication" onclick="smoothTo(event,'complication')">Complication</a>
-  <a href="#resolution"   onclick="smoothTo(event,'resolution')">Resolution</a>
+<nav id="main-nav">
+  <a href="#situation"    data-section="situation">Situation</a>
+  <a href="#complication" data-section="complication">Complication</a>
+  <a href="#resolution"   data-section="resolution">Resolution</a>
+  <a href="#insight"      data-section="insight">Insight</a>
+  <a href="#rekomendasi"  data-section="rekomendasi">Rekomendasi</a>
 </nav>
 
-<!-- ================= SITUATION ================= -->
+<!-- ═══════════════════════ SITUATION ═══════════════════════ -->
 <section class="scr" id="situation">
   <div class="inner">
     <span class="label">Situation</span>
@@ -326,11 +492,10 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- ================= COMPLICATION ================= -->
+<!-- ═══════════════════════ COMPLICATION ═══════════════════════ -->
 <section class="scr" id="complication">
   <div class="inner">
     <span class="label">Complication</span>
@@ -342,62 +507,37 @@
     </div>
 
     <div class="viz-wrap">
-      ```html
-<div
-  class="tableauPlaceholder"
-  id="viz1781706871688"
-  style="position: relative;"
->
-  <noscript>
-    <a href="#">
-      <img
-        alt="Dashboard 1"
-        src="https://public.tableau.com/static/images/Co/Complication_17817067797200/Dashboard1/1_rss.png"
-        style="border: none;"
-      />
-    </a>
-  </noscript>
-
-  <object class="tableauViz" style="display: none;">
-    <param name="host_url" value="https://public.tableau.com/" />
-    <param name="embed_code_version" value="3" />
-    <param name="site_root" value="" />
-    <param name="name" value="Complication_17817067797200/Dashboard1" />
-    <param name="tabs" value="no" />
-    <param name="toolbar" value="yes" />
-    <param
-      name="static_image"
-      value="https://public.tableau.com/static/images/Co/Complication_17817067797200/Dashboard1/1.png"
-    />
-    <param name="animate_transition" value="yes" />
-    <param name="display_static_image" value="yes" />
-    <param name="display_spinner" value="yes" />
-    <param name="display_overlay" value="yes" />
-    <param name="display_count" value="yes" />
-    <param name="language" value="en-US" />
-  </object>
-</div>
-
-<script type="text/javascript">
-  var divElement = document.getElementById("viz1781706871688");
-  var vizElement = divElement.getElementsByTagName("object")[0];
-
-  if (divElement.offsetWidth > 500) {
-    vizElement.style.width = "1366px";
-    vizElement.style.height = "827px";
-  } else {
-    vizElement.style.width = "100%";
-    vizElement.style.height = "1277px";
-  }
-
-  var scriptElement = document.createElement("script");
-  scriptElement.src =
-    "https://public.tableau.com/javascripts/api/viz_v1.js";
-
-  vizElement.parentNode.insertBefore(scriptElement, vizElement);
-</script>
-```
-
+      <div class="tableauPlaceholder" id="viz1781706871688" style="position: relative;">
+        <noscript>
+          <a href="#"><img alt="Dashboard 1" src="https://public.tableau.com/static/images/Co/Complication_17817067797200/Dashboard1/1_rss.png" style="border: none;"/></a>
+        </noscript>
+        <object class="tableauViz" style="display: none;">
+          <param name="host_url" value="https://public.tableau.com/" />
+          <param name="embed_code_version" value="3" />
+          <param name="site_root" value="" />
+          <param name="name" value="Complication_17817067797200/Dashboard1" />
+          <param name="tabs" value="no" />
+          <param name="toolbar" value="yes" />
+          <param name="static_image" value="https://public.tableau.com/static/images/Co/Complication_17817067797200/Dashboard1/1.png"/>
+          <param name="animate_transition" value="yes" />
+          <param name="display_static_image" value="yes" />
+          <param name="display_spinner" value="yes" />
+          <param name="display_overlay" value="yes" />
+          <param name="display_count" value="yes" />
+          <param name="language" value="en-US" />
+        </object>
+      </div>
+      <script type="text/javascript">
+        (function() {
+          var divElement = document.getElementById("viz1781706871688");
+          var vizElement = divElement.getElementsByTagName("object")[0];
+          vizElement.style.width = "100%";
+          vizElement.style.height = "100%";
+          var scriptElement = document.createElement("script");
+          scriptElement.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
+          vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        })();
+      </script>
     </div>
 
     <div class="insight-box">
@@ -407,7 +547,7 @@
           <div class="insight-icon">📉</div>
           <div class="insight-text">
             <strong>Skor Kesehatan Mental Anjlok 35%</strong>
-            Kelompok Very High stress memiliki rata-rata skor <i>Mental Health</i> 5,1 — turun drastis dibanding kelompok Low stress yang mencapai 7,8.
+            Kelompok Very High stress memiliki rata-rata skor Mental Health 5,1 — turun drastis dibanding kelompok Low stress yang mencapai 7,8.
           </div>
         </div>
         <div class="insight-item">
@@ -433,15 +573,14 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- ================= RESOLUTION ================= -->
+<!-- ═══════════════════════ RESOLUTION ═══════════════════════ -->
 <section class="scr" id="resolution">
   <div class="inner">
     <span class="label">Resolution</span>
-    <h2>Rekomendasi: Kombinasi Optimal untuk Kesehatan Mental</h2>
+    <h2>Rekomendasi: Penggunaan Media Sosial yang Efektif untuk Kesehatan Mental</h2>
 
     <div class="narrative">
       <h3>Why It Matters</h3>
@@ -449,63 +588,38 @@
     </div>
 
     <div class="viz-wrap">
-      <div
-  class="tableauPlaceholder"
-  id="viz1781707263277"
-  style="position: relative;"
->
-  <noscript>
-    <a href="#">
-      <img
-        alt="Dashboard 2"
-        src="https://public.tableau.com/static/images/Re/Resolution_17817072084200/Dashboard2/1_rss.png"
-        style="border: none;"
-      />
-    </a>
-  </noscript>
-
-  <object class="tableauViz" style="display: none;">
-    <param name="host_url" value="https://public.tableau.com/" />
-    <param name="embed_code_version" value="3" />
-    <param name="site_root" value="" />
-    <param name="name" value="Resolution_17817072084200/Dashboard2" />
-    <param name="tabs" value="no" />
-    <param name="toolbar" value="yes" />
-    <param
-      name="static_image"
-      value="https://public.tableau.com/static/images/Re/Resolution_17817072084200/Dashboard2/1.png"
-    />
-    <param name="animate_transition" value="yes" />
-    <param name="display_static_image" value="yes" />
-    <param name="display_spinner" value="yes" />
-    <param name="display_overlay" value="yes" />
-    <param name="display_count" value="yes" />
-    <param name="language" value="en-US" />
-    <param name="filter" value="publish=yes" />
-  </object>
-</div>
-
-<script type="text/javascript">
-  var divElement = document.getElementById("viz1781707263277");
-  var vizElement = divElement.getElementsByTagName("object")[0];
-
-  if (divElement.offsetWidth > 800) {
-    vizElement.style.width = "1366px";
-    vizElement.style.height = "827px";
-  } else if (divElement.offsetWidth > 500) {
-    vizElement.style.width = "1366px";
-    vizElement.style.height = "827px";
-  } else {
-    vizElement.style.width = "100%";
-    vizElement.style.height = "1027px";
-  }
-
-  var scriptElement = document.createElement("script");
-  scriptElement.src =
-    "https://public.tableau.com/javascripts/api/viz_v1.js";
-
-  vizElement.parentNode.insertBefore(scriptElement, vizElement);
-</script>
+      <div class="tableauPlaceholder" id="viz1781707263277" style="position: relative;">
+        <noscript>
+          <a href="#"><img alt="Dashboard 2" src="https://public.tableau.com/static/images/Re/Resolution_17817072084200/Dashboard2/1_rss.png" style="border: none;"/></a>
+        </noscript>
+        <object class="tableauViz" style="display: none;">
+          <param name="host_url" value="https://public.tableau.com/" />
+          <param name="embed_code_version" value="3" />
+          <param name="site_root" value="" />
+          <param name="name" value="Resolution_17817072084200/Dashboard2" />
+          <param name="tabs" value="no" />
+          <param name="toolbar" value="yes" />
+          <param name="static_image" value="https://public.tableau.com/static/images/Re/Resolution_17817072084200/Dashboard2/1.png"/>
+          <param name="animate_transition" value="yes" />
+          <param name="display_static_image" value="yes" />
+          <param name="display_spinner" value="yes" />
+          <param name="display_overlay" value="yes" />
+          <param name="display_count" value="yes" />
+          <param name="language" value="en-US" />
+          <param name="filter" value="publish=yes" />
+        </object>
+      </div>
+      <script type="text/javascript">
+        (function() {
+          var divElement = document.getElementById("viz1781707263277");
+          var vizElement = divElement.getElementsByTagName("object")[0];
+          vizElement.style.width = "100%";
+          vizElement.style.height = "100%";
+          var scriptElement = document.createElement("script");
+          scriptElement.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
+          vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        })();
+      </script>
     </div>
 
     <div class="insight-box">
@@ -534,7 +648,132 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
 
+<!-- ═══════════════════════ INSIGHT ═══════════════════════ -->
+<section class="scr" id="insight">
+  <div class="inner">
+    <h2>Insights dari Hasil Analisis</h2>
+
+    <div class="narrative">
+      <h3>Why It Matters</h3>
+      <p>Berdasarkan hasil analisis terhadap pola penggunaan media sosial dan dampaknya pada kesehatan mental mahasiswa, berikut adalah temuan-temuan utama yang dapat dijadikan dasar pengambilan keputusan dan intervensi yang tepat sasaran.</p>
+    </div>
+
+    <div class="finding-grid">
+      <div class="finding-card blue">
+        <span class="fc-icon">📱</span>
+        <h4>Instagram & TikTok Mendominasi, WhatsApp Paling Intensif</h4>
+        <p>Media sosial didominasi oleh Instagram dan TikTok sebagai platform utama, menunjukkan preferensi kuat terhadap konten visual dan hiburan singkat. Sementara itu, WhatsApp memiliki intensitas penggunaan harian tertinggi (±6,4 jam/hari), terutama pada mahasiswa perempuan.</p>
+      </div>
+      <div class="finding-card blue">
+        <span class="fc-icon">🎓</span>
+        <h4>Mayoritas S1, Tujuan Utama Hiburan & Networking</h4>
+        <p>Mayoritas responden adalah mahasiswa S1 (lebih dari 70%), dengan tujuan utama penggunaan media sosial berfokus pada hiburan dan networking, bukan aktivitas akademik.</p>
+      </div>
+      <div class="finding-card red">
+        <span class="fc-icon">⚡</span>
+        <h4>Hubungan Kuat: Durasi Penggunaan & Tingkat Stres</h4>
+        <p>Terdapat hubungan kuat antara durasi penggunaan media sosial dan tingkat stres, di mana kelompok Very High stress menggunakan media sosial hingga ±6,9 jam/hari dibanding Low stress ±2,8 jam/hari.</p>
+      </div>
+      <div class="finding-card red">
+        <span class="fc-icon">📉</span>
+        <h4>Penggunaan Berlebih = Dampak Domino Tiga Aspek</h4>
+        <p>Peningkatan durasi penggunaan media sosial berkorelasi dengan penurunan signifikan pada kesehatan mental (skor turun hingga 35%), penurunan jam belajar (1,6 vs 4,4 jam/hari), serta penurunan kualitas tidur (5,4 vs 8,2 jam/malam).</p>
+      </div>
+      <div class="finding-card purple">
+        <span class="fc-icon">🏫</span>
+        <h4>Siswa SMA Paling Rentan terhadap Stres Digital</h4>
+        <p>Siswa SMA menunjukkan tingkat kerentanan tertinggi terhadap stres digital, dengan 48% masuk kategori Very High stress (dari jumlah responden 450 orang).</p>
+      </div>
+      <div class="finding-card green">
+        <span class="fc-icon">⏳</span>
+        <h4>Penggunaan Rendah (&lt;2 Jam) = Skor Mental Health Tertinggi</h4>
+        <p>Penggunaan media sosial dalam durasi rendah (&lt;2 jam/hari) menghasilkan skor kesehatan mental tertinggi (±8), jauh lebih baik dibanding pengguna intensif (&gt;5 jam/hari).</p>
+      </div>
+      <div class="finding-card green">
+        <span class="fc-icon">🌙</span>
+        <h4>Pola Hidup Sehat Berkorelasi dengan Kesehatan Mental Lebih Baik</h4>
+        <p>Pola hidup sehat seperti tidur 7–8 jam dan aktivitas fisik minimal 2 jam/hari terbukti konsisten berkorelasi dengan kesehatan mental yang lebih baik.</p>
+      </div>
+      <div class="finding-card yellow">
+        <span class="fc-icon">🎯</span>
+        <h4>Platform Produktif Hasilkan Skor Mental Health Lebih Tinggi</h4>
+        <p>Platform berbasis produktivitas dan networking seperti LinkedIn dan LINE menghasilkan skor kesehatan mental lebih tinggi dibanding platform berbasis hiburan seperti TikTok dan WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ REKOMENDASI ═══════════════════════ -->
+<section class="scr" id="rekomendasi">
+  <div class="inner">
+    <span class="label">Rekomendasi</span>
+    <h2>Rekomendasi Berdasarkan Analisis Data</h2>
+
+    <div class="narrative">
+      <p>Setelah menganalisis dan memvisualisasikan data melalui Dashboard Tableau, berikut beberapa rekomendasi yang dapat diberikan untuk mendorong penggunaan media sosial yang lebih sehat dan meningkatkan kesejahteraan mental mahasiswa.</p>
+    </div>
+
+    <div class="rekom-grid">
+      <div class="rekom-card">
+        <div class="rekom-number">01</div>
+        <div class="rekom-icon">📲</div>
+        <h4>Integrasikan Media Sosial Populer ke Micro-Learning</h4>
+        <p>Integrasikan media sosial populer (Instagram/TikTok) ke dalam pembelajaran berbasis micro-learning agar preferensi pengguna tetap dimanfaatkan secara positif.</p>
+        <span class="rekom-tag">Edukatif</span>
+      </div>
+      <div class="rekom-card">
+        <div class="rekom-number">02</div>
+        <div class="rekom-icon">📖</div>
+        <h4>Tingkatkan Literasi Digital</h4>
+        <p>Tingkatkan literasi digital untuk menggeser pola penggunaan dari hiburan pasif menjadi aktivitas yang lebih produktif dan edukatif.</p>
+        <span class="rekom-tag">Sistemik</span>
+      </div>
+      <div class="rekom-card">
+        <div class="rekom-number">03</div>
+        <div class="rekom-icon">⏰</div>
+        <h4>Terapkan Batas Penggunaan &lt;2 Jam/Hari</h4>
+        <p>Terapkan batas penggunaan media sosial harian (&lt;2 jam) sebagai standar digital well-being bagi mahasiswa.</p>
+        <span class="rekom-tag">Quick Win</span>
+      </div>
+      <div class="rekom-card">
+        <div class="rekom-number">04</div>
+        <div class="rekom-icon">🏫</div>
+        <h4>Implementasikan Program Digital Well-Being</h4>
+        <p>Implementasikan program digital well-being di sekolah dan kampus untuk mengurangi risiko stres akibat penggunaan media sosial berlebihan.</p>
+        <span class="rekom-tag">Institusi</span>
+      </div>
+      <div class="rekom-card">
+        <div class="rekom-number">05</div>
+        <div class="rekom-icon">🏥</div>
+        <h4>Perkuat Layanan Konseling & Deteksi Dini</h4>
+        <p>Perkuat layanan konseling dan deteksi dini kesehatan mental, terutama pada kelompok pelajar SMA yang paling rentan.</p>
+        <span class="rekom-tag">Prioritas Tinggi</span>
+      </div>
+      <div class="rekom-card">
+        <div class="rekom-number">06</div>
+        <div class="rekom-icon">🌙</div>
+        <h4>Dorong Manajemen Waktu & Sleep Hygiene</h4>
+        <p>Dorong manajemen waktu dan sleep hygiene sebagai bagian dari kurikulum atau program orientasi mahasiswa baru.</p>
+        <span class="rekom-tag">Kurikulum</span>
+      </div>
+      <div class="rekom-card">
+        <div class="rekom-number">07</div>
+        <div class="rekom-icon">💼</div>
+        <h4>Arahkan ke Platform Lebih Produktif</h4>
+        <p>Arahkan penggunaan media sosial ke platform yang lebih produktif seperti LinkedIn dan LINE untuk meningkatkan kesejahteraan mental dan produktivitas.</p>
+        <span class="rekom-tag">Individu</span>
+      </div>
+      <div class="rekom-card">
+        <div class="rekom-number">08</div>
+        <div class="rekom-icon">🏃</div>
+        <h4>Promosikan Gaya Hidup Seimbang</h4>
+        <p>Promosikan gaya hidup seimbang melalui kombinasi penggunaan media sosial yang terkontrol, tidur 7–8 jam, dan aktivitas fisik rutin minimal 2 jam/hari.</p>
+        <span class="rekom-tag">High Impact</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -543,13 +782,43 @@
 </footer>
 
 <script>
-  function smoothTo(e, id) {
-    e.preventDefault();
-    const target = document.getElementById(id);
-    const navH   = document.querySelector('nav').offsetHeight;
-    const top    = target.getBoundingClientRect().top + window.scrollY - navH - 16;
-    window.scrollTo({ top, behavior: 'smooth' });
+  const SECTIONS = ['situation','complication','resolution','insight','rekomendasi'];
+
+  /* ── Smooth scroll on nav click ── */
+  document.querySelectorAll('nav a[data-section]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const id     = this.dataset.section;
+      const target = document.getElementById(id);
+      if (!target) return;
+      const navH = document.getElementById('main-nav').offsetHeight;
+      const top  = target.getBoundingClientRect().top + window.scrollY - navH - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  /* ── Active nav highlight on scroll ── */
+  function updateActiveNav() {
+    const nav     = document.getElementById('main-nav');
+    const navH    = nav.offsetHeight;
+    const scrollY = window.scrollY + navH + 48;
+    let active    = SECTIONS[0];
+
+    SECTIONS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) active = id;
+    });
+
+    SECTIONS.forEach(id => {
+      const link = document.querySelector(`nav a[data-section="${id}"]`);
+      if (!link) return;
+      link.className = (id === active) ? `active-${id}` : '';
+    });
   }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  window.addEventListener('load', updateActiveNav);
+  updateActiveNav();
 </script>
 
 </body>
